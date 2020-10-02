@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <h1>{{msg}}</h1>
+    </div>
+    <!-- 
+        1、下载npm i vue
+        2、引用包
+        3、使用，创建vue实例
+     -->
+
+    <script src="./vue.js"></script>
+    <script>
+      /* 
+        vue是一个渐进式的javascript框架
+        1、渐进式：渐渐地逐渐增强
+        2、框架：一套完整的解决方案
+            好处：框架帮你实现了大量的规则和代码，可以大大的提升开发效率
+            缺点：缺失了一些自由度，且需要学习框架的规则，按照规则去开发
+        */
+
+      /* 
+        vue的设计模式  => MVVM, MVVM是一种设计模式，从后端的MVC演化而来
+
+        MVVM:
+            M:Model数据模型层，我们的数据，可以是自己提供，也可以从后台请求回来
+            V:View 视图层  页面展示相关到的，比如登录页，注册页
+            VM:ViewModel 视图模型，既可以操作视图层，又可以控制数据模型层
+        */
+
+      //只要引入了vue,就在全局，有一个Vue构造函数
+      const vm = new Vue({
+        //指定视图 + 数据
+        //el: element 指定vue所管理的视图范围，值是一个选择器
+        el: "#app",
+        //data:数据，指定vue中能够使用的数据
+        data: {
+          msg: "hah",
+        },
+      });
+
+      /* 
+      vue的初体验
+      1.npm i vue
+      2.引包
+      3.创建vue实例
+        const vm = new Vue({
+            //视图 + 数据
+            el:'选择器',
+            data:{
+                msg:'刚'
+            }
+        })
+      */
+    </script>
+  </body>
+</html>
