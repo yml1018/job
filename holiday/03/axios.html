@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- 
+        $.ajax({...}) type url data success error
+
+        axios只是一个基于原生ajax封装的插件工具
+        在你需要发送ajax的时候，引入即可
+
+        使用：
+        1.下载 npm i axios
+        2.引包
+        3.发送请求
+
+        axios({
+            method:请求方式   //  get post put delete patch
+            url:请求地址    http://localhost:3000/list
+            data:{}     参数对象，在body请求体中传递，post put patch
+            params:{}   参数对象，在url地址栏中传递
+        }).then(成功的函数).catch(失败的函数)
+     -->
+
+    <!-- 
+         注意：打开页面 alt +B,不要用vscode插件  live-server 会和我们的json-server冲突
+         live-server会监视vscode工作区的内容，只要改变了内容，就会自动刷新浏览器
+
+         打开页面  => 发送请求，修改请求  => json-server修改data.json
+         只要修改data.json 而data.json又在vscode工作区，被live-server监视到，要刷新页面
+      -->
+
+    <script src="../node_modules/axios/dist/axios.js"></script>
+    <script>
+      //如果发送的请求比较简单，可以利用axios简写的语法
+      /* 
+        1.get和delete类似
+        axios.get(url).then(成功的函数)
+        axios.get(url, {
+            params:{...}
+        }).then(成功的函数)
+
+        2.post和put和patch类似
+        axios.post(url, data).then(成功的函数)
+         */
+
+      //测试
+      //1.发送get 请求，获取全部的数据
+      //  axios({
+      //      method:'get',
+      //      url:'http://localhost:3000/list'
+      //  }).then((res) => {
+      //      //后台返回的数据 res.data
+      //      console.log(res.data);
+      //  }).catch(err => {
+      //      console.log(err);
+      //      alert('服务器繁忙')
+      //  })
+
+      //  //alt + B
+      //  //2.发送get 请求，完成搜索数据
+      //  //(1) 可以直接在地址栏拼接
+      //  axios({
+      //      method:'get',
+      //      url:'http://localhost:3000/list?name_like=车'
+      //  }).then(res => {
+      //      console.log(res.data);
+      //  })
+
+      //  //(2) 在params中传递
+      //  axios({
+      //      method:'get',
+      //      url:'http://localhost:3000/list',
+      //      params:{
+      //          name_like:'车'
+      //      }
+      //  }).then(res => {
+      //      console.log(res.data);
+      //  })
+
+      //3.axios发送post请求，添加
+      //put patch post 的参数都在data中
+      //json-server要求请求的传输格式json 格式，axios默认的请求body的传输格式，就是json格式
+
+      //   axios({
+      //     method: "post",
+      //     url: "http://localhost:3000/list",
+      //     data: {
+      //       name: "棒棒糖",
+      //       price: 1,
+      //     },
+      //   }).then((res) => {
+      //     console.log(res.data);
+      //     console.log("添加成功");
+      //   });
+
+      //4.删除操作delete
+      //   const id = 8;
+      //   axios.delete(`http://localhost:3000/list/${id}`).then((res) => {
+      //     console.log("删除成功");
+      //   });
+
+      //   //5.全部修改，两个属性都改成put
+      //   const id = 5;
+      //   axios
+      //     .put(`http://localhost:3000/list/${id}`, {
+      //       name: "house",
+      //       price: 999,
+      //     })
+      //     .then((res) => {
+      //       console.log(res.data); //得到修改后的结果
+      //       console.log("修改成功");
+      //     });
+
+      //6.局部修改，只改一个属性patch
+      const id = 4;
+      axios
+        .patch(`http://localhost:3000/list/${id}`, {
+          name: "祖传",
+        })
+        .then((res) => {
+          console.log(res.data);
+          console.log("修改成功");
+        });
+    </script>
+  </body>
+</html>
