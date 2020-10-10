@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <subject @submit-ans='submitAns' v-for='item in list' :key='item.id' :submitid='item.id'></subject>
+      <p>
+        <span v-for='item in list' :key='item.id'> {{item.id}} . {{item.ans}} </span>
+      </p>
+    </div>
+
+    <script src="./vue.js"></script>
+    <script>
+
+      //创建与上方标签名对应的组件
+      Vue.component('subject', {
+        template:`
+        <div>
+        <span> {{num1}} </span>+
+        <span> {{num2}} </span> =
+        <input :disabled='isSubmit' type="text" v-model.trim.number='sum'/>
+        <button :disabled='isSubmit' @click='submit'>提交</button>
+        </div>
+        `,
+        data(){
+          //为了保证每个组件数据的独立性
+          return {
+            num1: parseInt(Math.random() * 10),
+            num2: parseInt(Math.random() * 10),
+            sum:'',
+            isSubmit:false
+          }
+        },
+        methods:{
+          submit(){
+            //在组件内先计算出算对了还是算错了
+            const result = (this.num1 + this.num2) === this.sum ? '正确' :'错误'
+            //子传父，将答案传给父元素加上ID
+            this.$emit('submit-ans', {
+              id:this.submitid,
+              ans:result
+            })
+            //提交答案禁用按钮和输入框
+            this.isSubmit=true
+          }
+        },
+        props:['submitid']
+      })
+      const vm = new Vue({
+        el: '#app',
+        data: {
+          list:[
+            {id:1, ans:'未完成'},
+            {id:2, ans:'未完成'},
+            {id:3, ans:'未完成'},
+            {id:4, ans:'未完成'},
+          ]
+        },
+        methods:{
+          submitAns(obj) {
+            const ansObj = this.list.find(item => item.id === obj.id)
+            ansObj.ans = obj.ans
+          }
+        }
+      })
+    </script>
+  </body>
+</html>
